@@ -4,6 +4,7 @@
 
 [![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://www.android.com/)
 [![Version](https://img.shields.io/badge/Version-1.0-blue.svg)](https://github.com/Vijendra-chaudhary/GATE_TRACKER)
+[![Release](https://img.shields.io/badge/Release-Stable-success.svg)](https://github.com/Vijendra-chaudhary/GATE_TRACKER)
 
 ## 📥 Download
 
