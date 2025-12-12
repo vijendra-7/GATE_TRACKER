@@ -175,9 +175,7 @@ fun ResourcesContent(
                 viewModel.resetFetchedMetadata()
             },
             resolvedDriveMetadata = viewModel.fetchedDriveMetadata.collectAsState().value,
-            onCheckUrlMetadata = { url ->
-                viewModel.fetchDriveMetadata(url)
-            },
+            onCheckUrlMetadata = { },
             onConfirm = { title, uri, resourceType, thumbnailUrl ->
                 val finalUri = if (resourceType == ResourceType.URL) {
                     uri

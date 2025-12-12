@@ -273,25 +273,9 @@ class ResourcesViewModel(
     }
     // State for fetched drive title
     // State for fetched drive metadata
-    private val _fetchedDriveMetadata = kotlinx.coroutines.flow.MutableStateFlow<com.gate.tracker.data.drive.DriveManager.DriveFileMetadata?>(null)
-    val fetchedDriveMetadata: kotlinx.coroutines.flow.StateFlow<com.gate.tracker.data.drive.DriveManager.DriveFileMetadata?> = _fetchedDriveMetadata.asStateFlow()
 
-    fun resetFetchedMetadata() {
-        _fetchedDriveMetadata.value = null
-    }
 
-    fun fetchDriveMetadata(url: String) {
-        viewModelScope.launch {
-            val fileId = com.gate.tracker.data.drive.DriveManager(context).extractDriveIdFromUrl(url)
-            
-            if (fileId != null) {
-                val result = repository.getDriveFileMetadata(fileId)
-                if (result.isSuccess) {
-                    _fetchedDriveMetadata.value = result.getOrNull()
-                }
-            }
-        }
-    }
+
     fun importDriveFolder(folderId: String) {
         viewModelScope.launch {
             try {

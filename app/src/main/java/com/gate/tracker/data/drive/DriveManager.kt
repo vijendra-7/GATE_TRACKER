@@ -450,22 +450,6 @@ class DriveManager(private val context: Context) {
     /**
      * Extract Drive File ID from URL
      */
-    fun extractDriveIdFromUrl(url: String): String? {
-        val patterns = listOf(
-            "/file/d/([a-zA-Z0-9_-]+)",
-            "/folders/([a-zA-Z0-9_-]+)",
-            "id=([a-zA-Z0-9_-]+)",
-            "/open\\?id=([a-zA-Z0-9_-]+)"
-        )
-        
-        for (pattern in patterns) {
-            val regex = pattern.toRegex()
-            val match = regex.find(url)
-            if (match != null && match.groupValues.size > 1) {
-                return match.groupValues[1]
-            }
-        }
-        return null
-    }
+
 
 }
