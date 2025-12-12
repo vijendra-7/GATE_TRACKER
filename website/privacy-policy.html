@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - GATE Tracker</title>
+    <meta name="description"
+        content="Privacy Policy for GATE Tracker - Learn how we collect, use, and protect your data.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-light: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .last-updated {
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 0.9rem;
+        }
+
+        .content-section {
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-section:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1);
+        }
+
+        .content-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-section h3 {
+            font-size: 1.25rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--text-secondary);
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .content-section ul {
+            color: var(--text-secondary);
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            border-left: 3px solid var(--primary);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">GATE Tracker</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="privacy-policy.html">Privacy</a></li>
+                <li><a href="terms.html">Terms</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">Privacy Policy</h1>
+        <p class="last-updated">Last updated: December 13, 2025</p>
+
+        <div class="content-section">
+            <h2>📋 Introduction</h2>
+            <p>Welcome to GATE Tracker. We are committed to protecting your privacy and ensuring the security of your
+                personal information. This Privacy Policy explains how we collect, use, and safeguard your data when you
+                use our application.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 Information We Collect</h2>
+
+            <h3>Information You Provide</h3>
+            <ul>
+                <li><strong>Account Information:</strong> When you sign in with Google, we collect your name, email
+                    address, and profile picture.</li>
+                <li><strong>Study Data:</strong> Progress tracking, subject selections, chapter completions, to-do
+                    lists, and study schedules.</li>
+                <li><strong>Exam Information:</strong> Your selected exam branch and target exam date.</li>
+            </ul>
+
+            <h3>Automatically Collected Information</h3>
+            <ul>
+                <li><strong>Usage Data:</strong> App interactions, feature usage, and session information.</li>
+                <li><strong>Device Information:</strong> Device type, operating system version, and app version.</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🔒 How We Use Your Information</h2>
+            <p>We use the collected information for the following purposes:</p>
+            <ul>
+                <li>To provide and maintain our service</li>
+                <li>To sync your study progress across devices</li>
+                <li>To send you notifications about your study goals and exam countdown</li>
+                <li>To improve and personalize your experience</li>
+                <li>To analyze app usage and performance</li>
+                <li>To provide customer support</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>☁️ Google Drive Integration</h2>
+            <div class="highlight">
+                <p><strong>Important:</strong> GATE Tracker uses Google Drive to backup and restore your study data. We
+                    only access files created by our app in your Google Drive.</p>
+            </div>
+            <p>When you use our cloud backup feature:</p>
+            <ul>
+                <li>We request the <code>drive.file</code> scope, which allows us to access only files created by GATE
+                    Tracker</li>
+                <li>We cannot access any other files in your Google Drive</li>
+                <li>Backup files are stored in a dedicated app folder in your Google Drive</li>
+                <li>You can delete backup files at any time from your Google Drive</li>
+                <li>We do not share your Google Drive data with any third parties</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>🛡️ Data Security</h2>
+            <p>We implement industry-standard security measures to protect your information:</p>
+            <ul>
+                <li>Data encryption in transit and at rest</li>
+                <li>Secure authentication through Google Sign-In</li>
+                <li>Regular security audits and updates</li>
+                <li>Limited access to personal data by our team</li>
+            </ul>
+            <p>However, no method of transmission over the internet is 100% secure. While we strive to protect your
+                data, we cannot guarantee absolute security.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Data Retention</h2>
+            <p>We retain your information for as long as your account is active or as needed to provide you services.
+                You can request deletion of your data at any time by contacting us or uninstalling the app.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>👥 Data Sharing</h2>
+            <p>We do not sell, trade, or rent your personal information to third parties. We may share your data only in
+                the following circumstances:</p>
+            <ul>
+                <li>With your explicit consent</li>
+                <li>To comply with legal obligations</li>
+                <li>To protect our rights and prevent fraud</li>
+                <li>With service providers who assist in operating our app (under strict confidentiality agreements)
+                </li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>👤 Your Rights</h2>
+            <p>You have the right to:</p>
+            <ul>
+                <li>Access your personal data</li>
+                <li>Correct inaccurate data</li>
+                <li>Request deletion of your data</li>
+                <li>Export your data</li>
+                <li>Opt-out of notifications</li>
+                <li>Revoke Google Drive access permissions</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>👶 Children's Privacy</h2>
+            <p>GATE Tracker is intended for users preparing for GATE exams. We do not knowingly collect information from
+                children under 13. If you believe we have collected information from a child under 13, please contact us
+                immediately.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🔔 Changes to This Policy</h2>
+            <p>We may update this Privacy Policy from time to time. We will notify you of any changes by posting the new
+                Privacy Policy on this page and updating the "Last updated" date.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>📧 Contact Us</h2>
+            <p>If you have any questions about this Privacy Policy, please contact us at:</p>
+            <p><strong>Email:</strong> support@gatetracker.app</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 GATE Tracker. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

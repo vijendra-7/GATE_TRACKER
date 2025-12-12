@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Service - GATE Tracker</title>
+    <meta name="description"
+        content="Terms of Service for GATE Tracker - Please read our terms and conditions carefully before using our app.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --background: #0f172a;
+            --surface: #1e293b;
+            --surface-light: #334155;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--background);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .last-updated {
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-size: 0.9rem;
+        }
+
+        .content-section {
+            background: var(--surface);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-section:hover {
+            border-color: var(--primary);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.1);
+        }
+
+        .content-section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .content-section h3 {
+            font-size: 1.25rem;
+            margin: 1.5rem 0 1rem;
+            color: var(--text-secondary);
+        }
+
+        .content-section p {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .content-section ul {
+            color: var(--text-secondary);
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(139, 92, 246, 0.2) 100%);
+            border-left: 3px solid var(--primary);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .warning {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.2) 0%, rgba(239, 68, 68, 0.2) 100%);
+            border-left: 3px solid var(--accent);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+
+        .footer {
+            background: var(--surface);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="logo">GATE Tracker</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="privacy-policy.html">Privacy</a></li>
+                <li><a href="terms.html">Terms</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <h1 class="page-title">Terms of Service</h1>
+        <p class="last-updated">Last updated: December 13, 2025</p>
+
+        <div class="content-section">
+            <h2>📜 Agreement to Terms</h2>
+            <p>By downloading, installing, or using GATE Tracker ("the App"), you agree to be bound by these Terms of
+                Service ("Terms"). If you do not agree to these Terms, please do not use our App.</p>
+            <div class="highlight">
+                <p><strong>Important:</strong> Please read these Terms carefully before using GATE Tracker. Your
+                    continued use of the App constitutes acceptance of these Terms.</p>
+            </div>
+        </div>
+
+        <div class="content-section">
+            <h2>📱 License to Use</h2>
+            <p>We grant you a limited, non-exclusive, non-transferable, revocable license to use GATE Tracker for your
+                personal, non-commercial use, subject to these Terms.</p>
+
+            <h3>You May:</h3>
+            <ul>
+                <li>Download and install the App on your personal devices</li>
+                <li>Use the App for tracking your GATE exam preparation</li>
+                <li>Backup and restore your study data using our cloud features</li>
+                <li>Share feedback and suggestions for improvement</li>
+            </ul>
+
+            <h3>You May Not:</h3>
+            <ul>
+                <li>Modify, reverse engineer, or decompile the App</li>
+                <li>Copy, distribute, or create derivative works</li>
+                <li>Use the App for any illegal or unauthorized purpose</li>
+                <li>Attempt to gain unauthorized access to our systems</li>
+                <li>Remove or alter any copyright, trademark, or proprietary notices</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>👤 User Accounts</h2>
+            <p>To access certain features of GATE Tracker, you must sign in with a Google account. You are responsible
+                for:</p>
+            <ul>
+                <li>Maintaining the security of your account credentials</li>
+                <li>All activities that occur under your account</li>
+                <li>Notifying us immediately of any unauthorized use</li>
+            </ul>
+            <p>We reserve the right to suspend or terminate accounts that violate these Terms.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>☁️ Cloud Services</h2>
+            <p>GATE Tracker offers cloud backup and restore functionality through Google Drive integration. By using
+                this feature:</p>
+            <ul>
+                <li>You authorize us to access files created by GATE Tracker in your Google Drive</li>
+                <li>You understand that backup availability depends on your Google Drive storage quota</li>
+                <li>You are responsible for managing your Google Drive storage</li>
+                <li>You can revoke access to Google Drive at any time through your Google account settings</li>
+            </ul>
+        </div>
+
+        <div class="content-section">
+            <h2>📊 User Content</h2>
+            <p>You retain all rights to the study data, notes, and other content you create in GATE Tracker ("User
+                Content"). By using our App, you grant us a limited license to:</p>
+            <ul>
+                <li>Store and process your User Content to provide our services</li>
+                <li>Backup your User Content to Google Drive (if you enable this feature)</li>
+                <li>Use anonymized, aggregated data for analytics and app improvements</li>
+            </ul>
+            <p>You are solely responsible for your User Content and the consequences of sharing it.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>⚠️ Disclaimers</h2>
+            <div class="warning">
+                <p><strong>Educational Tool Only:</strong> GATE Tracker is a study management tool and does not
+                    guarantee exam success. Your performance depends on your dedication and study efforts.</p>
+            </div>
+
+            <h3>No Warranty</h3>
+            <p>The App is provided "AS IS" and "AS AVAILABLE" without warranties of any kind, either express or implied,
+                including but not limited to:</p>
+            <ul>
+                <li>Warranties of merchantability or fitness for a particular purpose</li>
+                <li>Accuracy, reliability, or completeness of content</li>
+                <li>Uninterrupted or error-free operation</li>
+                <li>Security or absence of viruses</li>
+            </ul>
+
+            <h3>Third-Party Content</h3>
+            <p>The syllabus content, study materials, and exam information provided in GATE Tracker are for reference
+                purposes only. We do not guarantee their accuracy or completeness. Always refer to official GATE sources
+                for authoritative information.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🚫 Limitation of Liability</h2>
+            <p>To the maximum extent permitted by law, GATE Tracker and its developers shall not be liable for any
+                indirect, incidental, special, consequential, or punitive damages, including but not limited to:</p>
+            <ul>
+                <li>Loss of data or study progress</li>
+                <li>Loss of profits or exam opportunities</li>
+                <li>Interruption of use or service</li>
+                <li>Cost of substitute services</li>
+            </ul>
+            <p>Our total liability shall not exceed the amount you paid to use the App (if applicable).</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🔄 Updates and Changes</h2>
+            <p>We reserve the right to:</p>
+            <ul>
+                <li>Modify or discontinue the App or any features at any time</li>
+                <li>Update these Terms at any time</li>
+                <li>Require updates to continue using the App</li>
+            </ul>
+            <p>Continued use of the App after changes constitutes acceptance of the updated Terms. We will notify you of
+                significant changes through the App or via email.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🔚 Termination</h2>
+            <p>We may terminate or suspend your access to GATE Tracker immediately, without prior notice or liability,
+                for any reason, including but not limited to:</p>
+            <ul>
+                <li>Breach of these Terms</li>
+                <li>Fraudulent, abusive, or illegal activity</li>
+                <li>At your request</li>
+            </ul>
+            <p>Upon termination, your right to use the App will cease immediately. You may delete your account and data
+                at any time.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🌍 Governing Law</h2>
+            <p>These Terms shall be governed by and construed in accordance with the laws of India, without regard to
+                its conflict of law provisions. Any disputes arising from these Terms or your use of the App shall be
+                subject to the exclusive jurisdiction of the courts in India.</p>
+        </div>
+
+        <div class="content-section">
+            <h2>✉️ Contact Information</h2>
+            <p>If you have any questions about these Terms of Service, please contact us at:</p>
+            <p><strong>Email:</strong> support@gatetracker.app</p>
+            <p><strong>Response Time:</strong> We aim to respond within 48 hours</p>
+        </div>
+
+        <div class="content-section">
+            <h2>🔖 Miscellaneous</h2>
+
+            <h3>Severability</h3>
+            <p>If any provision of these Terms is found to be unenforceable or invalid, that provision will be limited
+                or eliminated to the minimum extent necessary so that these Terms will otherwise remain in full force
+                and effect.</p>
+
+            <h3>Entire Agreement</h3>
+            <p>These Terms, along with our Privacy Policy, constitute the entire agreement between you and GATE Tracker
+                regarding the use of the App.</p>
+
+            <h3>Waiver</h3>
+            <p>No waiver of any term of these Terms shall be deemed a further or continuing waiver of such term or any
+                other term.</p>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 GATE Tracker. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>
