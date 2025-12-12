@@ -1,63 +1,56 @@
-# 🎓 GATE Tracker
+# <img src="gate_tracker_logo_for_upload.png" width="48" height="48" style="vertical-align: middle;"> GATE Tracker
 
-> A comprehensive Android application for GATE exam preparation and progress tracking.
+> **Your ultimate companion for GATE exam success.**  
+> *Track Syllabus, Manage Revision, and Ace the Exam.*
 
 [![Platform](https://img.shields.io/badge/Platform-Android-green.svg)](https://www.android.com/)
-[![Version](https://img.shields.io/badge/Version-1.0-blue.svg)](https://github.com/Vijendra-chaudhary/GATE_TRACKER)
-[![Release](https://img.shields.io/badge/Release-Stable-success.svg)](https://github.com/Vijendra-chaudhary/GATE_TRACKER)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/Status-Active-success.svg)](https://github.com/Vijendra-chaudhary/GATE_TRACKER)
 
-## 📥 Download
-
-Download the latest version: **[GATE-Tracker.apk](GATE-Tracker.apk)**
-
-## 📋 Overview
-
-GATE Tracker is a feature-rich study companion designed specifically for GATE aspirants across all branches. This application helps students organize their preparation, track progress, and stay motivated throughout their GATE journey.
-
-## ✨ Key Features
-
-- **📚 Comprehensive Syllabus Coverage** - Complete GATE syllabus organized by subjects and chapters
-- **📊 Progress Tracking** - Visual progress indicators for each subject and chapter
-- **✅ To-Do Lists** - Manage daily study tasks and track completion
-- **📝 Chapter Notes** - Add and manage personal notes for each chapter
-- **🔄 Revision Mode** - Dedicated mode for systematic revision with separate tracking
-- **📅 Progress Calendar** - View daily study streaks and activity patterns
-- **🔔 Smart Reminders** - Customizable notifications for study sessions and mock tests
-- **☁️ Cloud Backup** - Secure Google Drive integration for data backup and restore
-- **🎯 Exam Countdown** - Real-time countdown to your GATE exam date
-- **💡 Motivational Quotes** - Daily inspiration to keep you motivated
-
-## 📱 Installation
-
-1. Download the APK file from the link above
-2. On your Android device, navigate to **Settings → Security**
-3. Enable **Install from Unknown Sources**
-4. Open the downloaded APK file and tap **Install**
-5. Launch the app and start your GATE preparation journey!
-
-## 🔧 System Requirements
-
-- **Minimum Android Version:** Android 7.0 (API Level 24) or higher
-- **Recommended:** Android 10.0 or higher for optimal performance
-- **Storage:** ~20 MB free space
-- **Permissions:** Storage (for backup), Internet (for cloud sync), Notifications
-
-## 🚀 Getting Started
-
-1. **Select Your Branch** - Choose your branch (CS/EC/EE/ME/CE/IN) from the branch selection screen
-2. **Set Exam Date** - Configure your GATE exam date for countdown tracking
-3. **Explore Subjects** - Browse through all GATE subjects and chapters for your selected branch
-4. **Track Progress** - Mark chapters as complete and monitor your progress
-5. **Enable Cloud Backup** - Secure your data with Google Drive integration
-
-## 📞 Support
-
-For issues, feature requests, or questions, please open an issue in this repository.
-
-## 📄 License
-
-This project is intended for educational purposes.
+## 📥 App Download
+**[Download Latest APK (v1.0)](GATE-Tracker.apk)**
 
 ---
 
-**Made with ❤️ for GATE Aspirants**
+## 📋 About The App
+GATE Tracker is a powerful, offline-first Android application designed to help engineering students systematically prepare for the **Graduate Aptitude Test in Engineering (GATE)**. It goes beyond simple to-do lists by offering a syllabus-structured tracking system for CS, EC, EE, ME, CE, and DA branches.
+
+## ✨ Key Features
+
+### 🚀 Smart Tracking
+*   **Subject-wise Breakdown**: Complete syllabus for 6 major branches.
+*   **Visual Analytics**: Real-time graphs showing your completion percentage.
+*   **Chapter Management**: Mark chapters as 'Complete' or 'In Revision'.
+
+### ☁️ Cloud Sync (Powered by Google Drive)
+*   **Secure Backup**: Never lose your progress.
+*   **One-Click Restore**: Switch devices seamlessly by restoring from your personal Google Drive.
+*   **Privacy First**: Your data stays in *your* Drive. We don't see it.
+
+### 🎯 Study Tools
+*   **Exam Countdown**: Stay aware of the days remaining.
+*   **Revision Mode**: A dedicated mode to track your revision cycles (R1, R2, R3).
+*   **Chapter Notes**: Attach quick summary notes to any chapter.
+
+---
+
+## 🔒 Privacy & Terms
+We value your privacy. This app stores data primarily on your device and uses your personal Google Drive for backups only upon your request.
+
+*   [Privacy Policy](PRIVACY_POLICY.md)
+*   [Terms of Service](TERMS_OF_SERVICE.md)
+
+---
+
+## 📱 How to Install
+1.  **Download** the APK from the link above.
+2.  **Allow** "Install from Unknown Sources" in your Android Settings if prompted.
+3.  **Install** and open the app.
+4.  **Login** with Google (Optional) to enable Cloud Backups.
+
+## 📞 Support
+Found a bug? Have a feature request?
+*   [Open an Issue](https://github.com/Vijendra-chaudhary/GATE_TRACKER/issues)
+
+---
+*Made with ❤️ for GATE Aspirants in India.*
