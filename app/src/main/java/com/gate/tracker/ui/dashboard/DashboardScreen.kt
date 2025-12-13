@@ -1,5 +1,9 @@
 package com.gate.tracker.ui.dashboard
 
+import androidx.compose.ui.platform.LocalContext
+import com.gate.tracker.data.ads.AdMobManager
+import com.gate.tracker.ui.dashboard.DashboardViewModel
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.*
 import androidx.compose.animation.fadeIn
@@ -29,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.gate.tracker.ui.components.AdMobBanner
 import com.gate.tracker.ui.components.SubjectsSummarySection
 import com.gate.tracker.ui.components.CountdownCard
 import com.gate.tracker.ui.components.ProgressCard
@@ -38,6 +43,7 @@ import com.gate.tracker.ui.components.ContinueStudyingCard
 import com.gate.tracker.ui.components.EmptyStateView
 import com.gate.tracker.ui.components.TodoCard
 import com.gate.tracker.ui.components.TodoDialog
+import com.gate.tracker.ui.components.DailyQuestionCard
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.isSystemInDarkTheme
 import kotlinx.coroutines.delay
@@ -69,6 +75,10 @@ fun DashboardScreen(
     val pendingCount by viewModel.pendingCount.collectAsState()
     val chaptersBySubject by viewModel.chaptersBySubject.collectAsState()
     val recommendations by viewModel.recommendations.collectAsState()
+    
+    // Remote config data
+    val dailyQuestion by viewModel.dailyQuestion.collectAsState()
+    val appUpdateInfo by viewModel.appUpdateInfo.collectAsState()
     
     // Revision mode state
     val isRevisionMode by viewModel.isRevisionMode.collectAsState()
@@ -112,12 +122,20 @@ fun DashboardScreen(
     // Animation visibility state
     var cardsVisible by remember { mutableStateOf(false) }
     
-    LaunchedEffect(branchId) {
+    val context = LocalContext.current
+    // AdMob Manager
+    val adMobManager = remember { AdMobManager(context) }
+    
+    LaunchedEffect(Unit) {
         viewModel.loadDashboard(branchId)
+        // Load Ad
+        adMobManager.loadInterstitialAd()
         // Trigger card animations with slight delay
         delay(100)
         cardsVisible = true
     }
+    
+
     
     Scaffold(
         topBar = {
@@ -228,13 +246,31 @@ fun DashboardScreen(
                 val isUrgent = daysRemaining <= 60
                 
                 if (isUrgent) {
-                    // URGENCY MODE (≤60 days): Countdown → Goal → Progress → Continue → Streak
+                    // URGENCY MODE (≤60 days): Daily Question → Countdown → Goal → Progress → Continue → Streak
+                    
+                    // 0. Daily Question Card
+                    item {
+                        AnimatedVisibility(
+                            visible = cardsVisible,
+                            enter = fadeIn(animationSpec = tween(400)) + 
+                                    slideInVertically(initialOffsetY = { it / 2 })
+                        ) {
+                            dailyQuestion?.let { question ->
+                                DailyQuestionCard(
+                                    question = question.question,
+                                    options = question.options,
+                                    correctAnswer = question.correctAnswer,
+                                    explanation = question.explanation
+                                )
+                            } ?: DailyQuestionCard() // Fallback to placeholder
+                        }
+                    }
                     
                     // 1. Countdown Card (urgent deadline)
                     item {
                         AnimatedVisibility(
                             visible = cardsVisible,
-                            enter = fadeIn(animationSpec = tween(400)) + 
+                            enter = fadeIn(animationSpec = tween(400, delayMillis = 50)) + 
                                     slideInVertically(initialOffsetY = { it / 2 })
                         ) {
                             CountdownCard(
@@ -259,6 +295,11 @@ fun DashboardScreen(
                                 onShowAllClick = { showTodoDialog = true }
                             )
                         }
+                    }
+
+                    // AdMob Banner (Testing)
+                    item {
+                         com.gate.tracker.ui.components.AdMobBanner()
                     }
                     
                     // 3. Progress Card
@@ -310,13 +351,31 @@ fun DashboardScreen(
                     }
                     
                 } else {
-                    // GOAL MODE (>60 days): Todo → Progress → Countdown → Continue → Streak
+                    // GOAL MODE (>60 days): Daily Question → Todo → Progress → Countdown → Continue → Streak
+                    
+                    // 0. Daily Question Card
+                    item {
+                        AnimatedVisibility(
+                            visible = cardsVisible,
+                            enter = fadeIn(animationSpec = tween(400)) + 
+                                    slideInVertically(initialOffsetY = { it / 2 })
+                        ) {
+                            dailyQuestion?.let { question ->
+                                DailyQuestionCard(
+                                    question = question.question,
+                                    options = question.options,
+                                    correctAnswer = question.correctAnswer,
+                                    explanation = question.explanation
+                                )
+                            } ?: DailyQuestionCard() // Fallback to placeholder
+                        }
+                    }
                     
                     // 1. Todo Card (focus on targets)
                     item {
                         AnimatedVisibility(
                             visible = cardsVisible,
-                            enter = fadeIn(animationSpec = tween(400)) + 
+                            enter = fadeIn(animationSpec = tween(400, delayMillis = 50)) + 
                                     slideInVertically(initialOffsetY = { it / 2 })
                         ) {
                             TodoCard(
@@ -327,6 +386,11 @@ fun DashboardScreen(
                                 onShowAllClick = { showTodoDialog = true }
                             )
                         }
+                    }
+
+                    // AdMob Banner (Testing)
+                    item {
+                         com.gate.tracker.ui.components.AdMobBanner()
                     }
                     
                     // 2. Progress Card
@@ -390,6 +454,7 @@ fun DashboardScreen(
                             )
                         }
                     }
+
                 }
         }
     }
@@ -424,6 +489,8 @@ fun DashboardScreen(
         )
     }
 }
+
+
 
 
 

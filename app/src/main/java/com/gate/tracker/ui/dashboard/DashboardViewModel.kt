@@ -11,6 +11,9 @@ import com.gate.tracker.data.local.entity.SubjectEntity
 import com.gate.tracker.data.local.entity.TodoWithDetails
 import com.gate.tracker.data.model.StreakBadge
 import com.gate.tracker.data.repository.GateRepository
+import com.gate.tracker.data.repository.RemoteConfigRepository
+import com.gate.tracker.data.remote.DailyQuestion
+import com.gate.tracker.data.remote.AppUpdateInfo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,6 +24,8 @@ import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.delay
 import java.util.Calendar
 import java.util.concurrent.TimeUnit
 
@@ -29,6 +34,15 @@ class DashboardViewModel(
     private val repository: GateRepository,
     private val backupRestoreViewModel: com.gate.tracker.ui.settings.BackupRestoreViewModel
 ) : AndroidViewModel(application) {
+    
+    // Remote Config
+    private val remoteConfigRepository = RemoteConfigRepository()
+    
+    private val _dailyQuestion = MutableStateFlow<DailyQuestion?>(null)
+    val dailyQuestion: StateFlow<DailyQuestion?> = _dailyQuestion.asStateFlow()
+    
+    private val _appUpdateInfo = MutableStateFlow<AppUpdateInfo?>(null)
+    val appUpdateInfo: StateFlow<AppUpdateInfo?> = _appUpdateInfo.asStateFlow()
     
     private val _selectedBranch = MutableStateFlow<BranchEntity?>(null)
     val selectedBranch: StateFlow<BranchEntity?> = _selectedBranch.asStateFlow()
@@ -103,9 +117,16 @@ class DashboardViewModel(
         }
     }
     
+
+
     fun toggleTodo(todoId: Int, isCompleted: Boolean) {
         viewModelScope.launch {
             if (isCompleted) {
+                // Check if this is the last item BEFORE it gets deleted
+                // We use pendingCount or todos.size. 
+                // Since this logic runs before DB update is reflected in UI but AFTER user click.
+                val isLastItem = todos.value.size == 1
+                
                 // First, mark the todo as complete to trigger animation
                 repository.toggleTodo(todoId, true)
                 
@@ -135,6 +156,8 @@ class DashboardViewModel(
                     
                     // Remove from to-do list after animation completes
                     repository.deleteTodo(todoId)
+                    
+
                     
                     // Trigger auto-backup after a delay (3000ms = 3 seconds)
                     // Delay ensures: 1) Animation completes, 2) Database writes finish to avoid conflicts
@@ -198,6 +221,25 @@ class DashboardViewModel(
         loadContinueStudying(branchId)
         loadRevisionProgress(branchId)
         loadTodoData(branchId)
+        loadRemoteConfig()
+    }
+    
+    private fun loadRemoteConfig() {
+        viewModelScope.launch {
+            try {
+                val result = remoteConfigRepository.fetchConfig()
+                result.onSuccess { config ->
+                    _dailyQuestion.value = config.dailyQuestion
+                    _appUpdateInfo.value = config.appUpdate
+                    Log.d("GATE_TRACKER", "Remote config loaded successfully")
+                }.onFailure { error ->
+                    Log.e("GATE_TRACKER", "Failed to load remote config", error)
+                    // Silently fail - app continues with local data only
+                }
+            } catch (e: Exception) {
+                Log.e("GATE_TRACKER", "Remote config error", e)
+            }
+        }
     }
     
     private fun loadRevisionProgress(branchId: Int) {

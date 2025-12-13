@@ -1,0 +1,22 @@
+{
+  "dailyQuestion": {
+    "question": "What is the time complexity of binary search on a sorted array?",
+    "options": [
+      "O(n)",
+      "O(log n)",
+      "O(n log n)",
+      "O(1)"
+    ],
+    "correctAnswer": 1,
+    "explanation": "Binary search divides the search space in half with each comparison, resulting in O(log n) time complexity. This makes it very efficient for large sorted datasets.",
+    "category": "Data Structures & Algorithms",
+    "difficulty": "Easy"
+  },
+  "appUpdate": {
+    "latestVersion": "1.0.0",
+    "currentVersionCode": 1,
+    "updateMessage": "You're running the latest version!",
+    "isForceUpdate": false,
+    "downloadUrl": null
+  }
+}
