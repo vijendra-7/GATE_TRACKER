@@ -12,14 +12,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.School
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
@@ -124,47 +118,77 @@ class MainActivity : ComponentActivity() {
             ActivityResultContracts.StartActivityForResult()
         ) { result ->
             Log.d("GATE_TRACKER", "Sign-in result received, resultCode: ${result.resultCode}")
-            backupRestoreViewModel.handleSignInResult(result.data)
             
-            // After sign-in, check if successful and auto-restore
-            lifecycleScope.launch {
-                val driveManager = com.gate.tracker.data.drive.DriveManager(this@MainActivity)
-                val signedIn = driveManager.isSignedIn()
-                Log.d("GATE_TRACKER", "After sign-in check: isSignedIn = $signedIn")
-                
-                if (signedIn) {
-                    // Update sign-in state to trigger recomposition
-                    isSignedInState?.value = true
-                    Log.d("GATE_TRACKER", "Updated isSignedInState to true")
+            // Handle the sign-in result and wait for success callback
+            backupRestoreViewModel.handleSignInResult(
+                data = result.data,
+                onSuccess = {
+                    Log.d("GATE_TRACKER", "Sign-in successful, processing post-login logic")
                     
-                    // Auto-restore from cloud backups (with smart merge)
-                    Log.d("GATE_TRACKER", "Starting auto-restore...")
-                    backupRestoreViewModel.checkAndAutoRestore { success, message ->
-                        Log.d("GATE_TRACKER", "Auto-restore completed: success=$success, message=$message")
+                    // After sign-in, check if successful and auto-restore
+                    lifecycleScope.launch {
+                        val driveManager = com.gate.tracker.data.drive.DriveManager(this@MainActivity)
+                        val signedIn = driveManager.isSignedIn()
+                        Log.d("GATE_TRACKER", "After sign-in check: isSignedIn = $signedIn")
                         
-                        // Navigate to tour or branch selection
-                        lifecycleScope.launch {
-                            // Re-fetch preference to ensure we have latest isFirstLaunch status 
-                            // (though unlikely to change during restore unless restore updates it)
-                            val userPref = repository.getUserPreference().firstOrNull()
+                        if (signedIn) {
+                            // Update sign-in state to trigger recomposition
+                            isSignedInState?.value = true
+                            Log.d("GATE_TRACKER", "Updated isSignedInState to true")
                             
-                            if (userPref?.isFirstLaunch == true) {
-                                navController?.navigate("app_tour") {
-                                    popUpTo("login") { inclusive = true }
-                                }
-                            } else {
-                                navController?.navigate("branch_selection") {
-                                    popUpTo("login") { inclusive = true }
+                            // Sync user to Supabase (fire-and-forget, non-blocking)
+                            lifecycleScope.launch(Dispatchers.IO) {
+                                try {
+                                    val account = com.google.android.gms.auth.api.signin.GoogleSignIn.getLastSignedInAccount(this@MainActivity)
+                                    if (account?.email != null) {
+                                        repository.syncUserToSupabase(
+                                            email = account.email!!,
+                                            displayName = account.displayName,
+                                            photoUrl = account.photoUrl?.toString()
+                                        )
+                                        Log.d("GATE_TRACKER", "User synced to Supabase: ${account.email}")
+                                    }
+                                } catch (e: Exception) {
+                                    // Silently fail - don't block app launch
+                                    Log.e("GATE_TRACKER", "Failed to sync user (non-critical): ${e.message}")
                                 }
                             }
-                            // Request notification permission after login
-                            checkNotificationPermission()
+
+                            // Auto-restore from cloud backups (with smart merge)
+                            Log.d("GATE_TRACKER", "Starting auto-restore...")
+                            // We need to use backupRestoreViewModel for this since it has the methods
+                            backupRestoreViewModel.checkAndAutoRestore { success, message ->
+                                Log.d("GATE_TRACKER", "Auto-restore completed: success=$success, message=$message")
+                                
+                                // Navigate to tour or branch selection
+                                lifecycleScope.launch {
+                                    // Re-fetch preference to ensure we have latest isFirstLaunch status 
+                                    // (though unlikely to change during restore unless restore updates it)
+                                    val userPref = repository.getUserPreference().firstOrNull()
+                                    
+                                    if (userPref?.isFirstLaunch == true) {
+                                        navController?.navigate("app_tour") {
+                                            popUpTo("login") { inclusive = true }
+                                        }
+                                    } else {
+                                        navController?.navigate("branch_selection") {
+                                            popUpTo("login") { inclusive = true }
+                                        }
+                                    }
+                                    // Request notification permission after login
+                                    checkNotificationPermission()
+                                }
+                            }
+                        } else {
+                            Log.d("GATE_TRACKER", "Sign-in failed check after success callback")
                         }
                     }
-                } else {
-                    Log.d("GATE_TRACKER", "Sign-in failed")
+                },
+                onFailure = { error ->
+                    Log.e("GATE_TRACKER", "Sign-in failed with error: $error")
+                    // Optional: Show toast or error message
                 }
-            }
+            )
         }
         
         // Initialize notification preferences and log app open
@@ -176,6 +200,9 @@ class MainActivity : ComponentActivity() {
             
             // Schedule all notifications
             NotificationScheduler.scheduleAll(this@MainActivity)
+            
+            // Schedule daily question refresh worker
+            scheduleDailyQuestionRefresh()
         }
         
         setContent {
@@ -227,7 +254,6 @@ class MainActivity : ComponentActivity() {
                     }
                 }
                 
-                // Show initial loading screen until userPref loads
                 if (userPref == null) {
                     BrandedLoadingScreen()
                 } else {
@@ -433,9 +459,14 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onSignOut = {
                                     coroutineScope.launch {
+                                        // Clear question history to prevent it from persisting across different Google accounts
+                                        repository.questionHistoryRepository.clearHistory()
                                         repository.clearSelectedBranch()
                                         navCtrl.navigate("branch_selection") {
-                                            popUpTo(0) { inclusive = true }
+                                            popUpTo(navCtrl.graph.startDestinationId) { 
+                                                inclusive = true 
+                                            }
+                                            launchSingleTop = true
                                         }
                                     }
                                 },
@@ -588,6 +619,31 @@ class MainActivity : ComponentActivity() {
                     } // End of Box
                 } // End of else
         }
+    }
+    
+    /**
+     * Schedule daily question refresh using WorkManager
+     * Runs every 24 hours to prefetch next 7 days of questions
+     */
+    private fun scheduleDailyQuestionRefresh() {
+        val constraints = androidx.work.Constraints.Builder()
+            .setRequiredNetworkType(androidx.work.NetworkType.CONNECTED) // Requires any network
+            .setRequiresBatteryNotLow(true) // Don't run when battery is low
+            .build()
+        
+        val dailyWorkRequest = androidx.work.PeriodicWorkRequestBuilder<com.gate.tracker.workers.DailyQuestionRefreshWorker>(
+            1, java.util.concurrent.TimeUnit.DAYS
+        )
+            .setConstraints(constraints)
+            .build()
+        
+        androidx.work.WorkManager.getInstance(this).enqueueUniquePeriodicWork(
+            com.gate.tracker.workers.DailyQuestionRefreshWorker.WORK_NAME,
+            androidx.work.ExistingPeriodicWorkPolicy.KEEP, // Don't replace if already exists
+            dailyWorkRequest
+        )
+        
+        Log.d("GATE_TRACKER", "Daily question refresh worker scheduled")
     }
 }
 
