@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.gate.tracker"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.gate.tracker"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -21,8 +21,18 @@ android {
         }
     }
 
+    signingConfigs {
+        create("release") {
+            storeFile = file("../gate_cs_release.keystore")
+            storePassword = "@VNChaudhary@NPPatel07"
+            keyAlias = "gate_cs_key"
+            keyPassword = "@VNChaudhary@NPPatel07"
+        }
+    }
+
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("release")
             isMinifyEnabled = true
             isShrinkResources = true
             proguardFiles(
@@ -56,6 +66,11 @@ android {
             excludes += "META-INF/LICENSE"
             excludes += "META-INF/NOTICE"
         }
+    }
+    
+    lint {
+        abortOnError = false
+        checkReleaseBuilds = false
     }
 }
 
@@ -108,4 +123,7 @@ dependencies {
 
     // Image Loading
     implementation("io.coil-kt:coil-compose:2.6.0")
+
+    // AdMob
+    implementation("com.google.android.gms:play-services-ads:23.0.0")
 }

@@ -136,23 +136,12 @@ object NotificationScheduler {
         }
 
         try {
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-                if (alarmManager.canScheduleExactAlarms()) {
-                    alarmManager.setExactAndAllowWhileIdle(
-                        AlarmManager.RTC_WAKEUP,
-                        calendar.timeInMillis,
-                        pendingIntent
-                    )
-                } else {
-                     alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis, pendingIntent)
-                }
-            } else {
-                alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    calendar.timeInMillis,
-                    pendingIntent
-                )
-            }
+            // Use inexact alarm (doesn't require special permissions)
+            alarmManager.setAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                calendar.timeInMillis,
+                pendingIntent
+            )
             Log.d("NotificationScheduler", "Scheduled $tag for ${calendar.time}")
         } catch (e: SecurityException) {
             Log.d("NotificationScheduler", "Permission error scheduling alarm", e)
@@ -200,19 +189,12 @@ object NotificationScheduler {
         )
 
         try {
-             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                alarmManager.setExactAndAllowWhileIdle(
-                    AlarmManager.RTC_WAKEUP,
-                    targetTime.timeInMillis,
-                    pendingIntent
-                )
-            } else {
-                alarmManager.setExact(
-                    AlarmManager.RTC_WAKEUP,
-                    targetTime.timeInMillis,
-                    pendingIntent
-                )
-            }
+            // Use inexact alarm (doesn't require special permissions)
+            alarmManager.setAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                targetTime.timeInMillis,
+                pendingIntent
+            )
             Log.d("NotificationScheduler", "Scheduled $tag for ${targetTime.time}")
         } catch (e: Exception) {
              Log.e("NotificationScheduler", "Error scheduling detailed alarm", e)
