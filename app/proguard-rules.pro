@@ -44,3 +44,45 @@
 -dontwarn io.opencensus.**
 -dontwarn java.nio.file.**
 -dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+
+# --- Jetpack Compose Rules ---
+# Keep Compose runtime and prevent method stripping
+-keep class androidx.compose.** { *; }
+-keep class androidx.compose.runtime.** { *; }
+-keep class androidx.compose.ui.** { *; }
+-keep class androidx.compose.material3.** { *; }
+-keep class androidx.compose.foundation.** { *; }
+-keepclassmembers class androidx.compose.** { *; }
+
+# Prevent stripping of Composable functions
+-keep @androidx.compose.runtime.Composable class * { *; }
+-keepclassmembers class * {
+    @androidx.compose.runtime.Composable *;
+}
+
+# --- Kotlin Coroutines Rules ---
+# Prevent coroutine classes from being stripped
+-keep class kotlinx.coroutines.** { *; }
+-keep class kotlin.coroutines.** { *; }
+-keepnames class kotlinx.coroutines.internal.MainDispatcherFactory {}
+-keepnames class kotlinx.coroutines.CoroutineExceptionHandler {}
+
+# Keep coroutine continuation classes
+-keepclassmembers class kotlin.coroutines.jvm.internal.BaseContinuationImpl {
+    *;
+}
+
+# --- Java Time API (Desugaring) Rules ---
+# Keep time-related classes for desugaring compatibility
+-keep class java.time.** { *; }
+-keep class java.time.temporal.** { *; }
+-keep class java.time.format.** { *; }
+-dontwarn java.time.**
+
+# --- Kotlin Metadata and Reflection ---
+# Required for Compose to work properly with R8
+-keepattributes RuntimeVisibleAnnotations
+-keepattributes AnnotationDefault
+-keep class kotlin.Metadata { *; }
+-keep class kotlin.reflect.** { *; }
+-dontwarn kotlin.reflect.**
